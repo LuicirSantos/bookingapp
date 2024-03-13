@@ -4,7 +4,9 @@ import StackNavigation from './src/routes/StackNavigation';
 
 export default function App() {
   return (
-    <StackNavigation />
+    <>
+      <StackNavigation />
+    </>
   );
 }
 
