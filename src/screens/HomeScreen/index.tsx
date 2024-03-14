@@ -81,6 +81,28 @@ function HomeScreen(){
             <Text style={styles.textSearch}>Procurar</Text>
           </TouchableOpacity>
         </View>
+
+        <Text style={styles.advertisingPhrase}>Viaje mais gaste menos</Text>
+        <ScrollView
+          style={{paddingHorizontal: 10}}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          <Pressable style={styles.loyaltyProgram}>
+            <Text style={styles.loyaltyProgramTitle}>Gênio</Text>
+            <Text style={styles.loyaltyProgramDescription}>Você alcançou o nível um de gênio em nosso programa de fidelidade</Text>
+          </Pressable>
+
+          <Pressable style={styles.loyaltyProgram}>
+            <Text style={styles.loyaltyProgramTitle}>Gênio</Text>
+            <Text style={styles.loyaltyProgramDescription}>Você alcançou o nível um de gênio em nosso programa de fidelidade</Text>
+          </Pressable>
+
+          <Pressable style={[styles.loyaltyProgram, {borderColor: '#E0E0E0', borderWidth: 2, backgroundColor: 'transparent'}]}>
+            <Text style={[styles.loyaltyProgramTitle, {color: '#000000'}]}>10% de desconto</Text>
+            <Text style={[styles.loyaltyProgramDescription, {color: '#000000'}]}>Aproveite descontos na participação em propriedades em todo o mundo</Text>
+          </Pressable>
+        </ScrollView>
       </ScrollView>
 
       <View>

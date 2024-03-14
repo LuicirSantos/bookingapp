@@ -116,6 +116,35 @@ const styles = StyleSheet.create({
     modalTextRooms:{
         fontSize: 18,
         fontWeight: '500'
+    },
+    // end modal
+
+    advertisingPhrase:{
+        marginHorizontal: 20,
+        fontSize: 17,
+        fontWeight: '500'
+    },
+
+    loyaltyProgram:{
+        width: 200,
+        height: 150,
+        marginTop: 10,
+        backgroundColor: STYLES_COLOR_GLOBAL.primatyColor,
+        borderRadius: 10,
+        padding: 20,
+        marginHorizontal: 10
+    },
+
+    loyaltyProgramTitle:{
+        color: STYLES_COLOR_GLOBAL.secondary,
+        fontSize: 15,
+        fontWeight: 'bold'
+    },
+
+    loyaltyProgramDescription:{
+        color: STYLES_COLOR_GLOBAL.secondary,
+        fontSize: 15,
+        fontWeight: '500'
     }
 });
 
