@@ -9,13 +9,23 @@ import HomeScreen from '../screens/HomeScreen';
 import BookingScreen from '../screens/BookingScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SavedScreen from '../screens/SavedScreen';
+import SearchScreen from '../screens/SearchScreen';
+import PlacesScreen from '../screens/PlacesScreen';
 
 export type RootStackParamList = {
   Main: undefined;
   HomeScreen: undefined;
+  SearchScreen: undefined;
   BookingScreen: undefined;
   ProfileScreen: undefined;
   SavedScreen: undefined;
+  PlacesScreen: {
+    rooms: number,
+    adults: number,
+    children: number,
+    date: {startDate: string, endDate: string},
+    place: string
+  };
 }
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -93,6 +103,8 @@ function StackNavigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Main" component={BottomTabs} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name='PlacesScreen' component={PlacesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

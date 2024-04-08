@@ -7,10 +7,7 @@ const styles = StyleSheet.create({
     },
 
     testAux: {
-        margin: 20,
-        borderColor: '#FFC72C',
-        borderWidth: 3,
-        borderRadius: 6
+        margin: 20
     },
 
     containerInputDatas: {
@@ -22,7 +19,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 6,
         borderStyle: 'solid',
-        paddingVertical: 15
+        paddingVertical: 15,
+        marginBottom: 5
     },
 
     buttonDone: {
@@ -145,6 +143,18 @@ const styles = StyleSheet.create({
         color: STYLES_COLOR_GLOBAL.secondary,
         fontSize: 15,
         fontWeight: '500'
+    },
+
+    containerLogoBooking:{
+        marginTop: 40,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+
+    logoBooking:{
+        width: 200,
+        height: 50,
+        resizeMode: "cover"
     }
 });
 
