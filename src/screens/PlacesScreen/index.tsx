@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, Text, Pressable, ScrollView, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Pressable, ScrollView, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import styles from './styles';
 import { useRoute } from '@react-navigation/native';
 import { AntDesign, Octicons, Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import Modal from "react-native-modal";
 import Header from '../../components/Header';
 import PropertyCard from '../../components/PropertyCard';
+import { STYLES_COLOR_GLOBAL } from '../../styles/styles';
 
 const data: any = [
   {
@@ -471,8 +473,22 @@ const data: any = [
 
 function PlacesScreen(){
 
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
   const route = useRoute<any>();
+  const [modalVisibleChoice, setModalVisibleChoice] = useState<boolean>(false);
   console.log(route.params);
+
+  const filters = [
+    {
+      id: '0',
+      filter: 'cost: Low to High'
+    },
+    {
+      id: '1',
+      filter: 'cost: High to Low'
+    }
+  ];
 
   return (
     <View style={styles.containerPlacesScreen}>
@@ -483,7 +499,7 @@ function PlacesScreen(){
         buttonBack={true}
       />
       <View style={styles.containerFilterSortMap}>
-        <Pressable style={[styles.buttonFilterSortMap]}>
+        <Pressable style={[styles.buttonFilterSortMap]} onPress={() => setModalVisibleChoice(!modalVisibleChoice)}>
           <Octicons name="arrow-switch" size={22} color="gray" />
           <Text style={styles.textFilterSortMap}>Ordenar</Text>
         </Pressable>
@@ -515,6 +531,33 @@ function PlacesScreen(){
             )
           }))}
       </ScrollView>
+      <Modal
+        style={styles.modalPlaces}
+        isVisible={modalVisibleChoice}
+        deviceWidth={windowWidth}
+        deviceHeight={windowHeight}
+        backdropColor='white'
+        backdropOpacity={0}
+      >
+        <View style={styles.modalContent}>
+        <Text style={styles.sortAndFilter}>Classificar e Filtrar</Text>
+          <View style={styles.boxSortAndFilter}>
+            <View style={styles.boxTitle}>
+              <Text style={{textAlign: 'center'}}>Classificar</Text>
+            </View>
+            <View style={{flex: 3}}>
+
+            </View>
+          </View>
+
+          <TouchableOpacity 
+            style={{width: '100%', padding: 10, backgroundColor: STYLES_COLOR_GLOBAL.primatyColor}}
+            onPress={() => setModalVisibleChoice(false)}
+          >
+            <Text style={{color: 'white', textAlign: 'center'}}>Concluído</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   )
 }

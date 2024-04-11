@@ -13,7 +13,7 @@
     "@react-navigation/native": "^6.1.14",
     "@react-navigation/native-stack": "^6.9.22",
     "dayjs": "^1.11.10",
-    "expo": "^50.0.14",
+    "expo": "^50.0.15",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "^0.73.6",
