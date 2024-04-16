@@ -11,6 +11,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SavedScreen from '../screens/SavedScreen';
 import SearchScreen from '../screens/SearchScreen';
 import PlacesScreen from '../screens/PlacesScreen';
+import MapScreen from '../screens/MapScreen';
 
 export type RootStackParamList = {
   Main: undefined;
@@ -26,6 +27,7 @@ export type RootStackParamList = {
     date: {startDate: string, endDate: string},
     place: string
   };
+  MapScreen: {searchResults: string};
 }
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -105,6 +107,8 @@ function StackNavigation() {
         <Stack.Screen name="Main" component={BottomTabs} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name='PlacesScreen' component={PlacesScreen} />
+        <Stack.Screen name='MapScreen' component={MapScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   )

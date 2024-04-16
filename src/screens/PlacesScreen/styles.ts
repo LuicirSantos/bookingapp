@@ -84,6 +84,18 @@ const styles = StyleSheet.create({
         // flex: 1, 
         // backgroundColor: 'white'
     },
+
+    boxFilter:{
+        flex: 3, 
+        margin: 3,
+        marginLeft: 15
+    },
+
+    buttonFilter:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10
+    }
 });
 
 export default styles;
