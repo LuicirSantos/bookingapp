@@ -12,6 +12,7 @@ import SavedScreen from '../screens/SavedScreen';
 import SearchScreen from '../screens/SearchScreen';
 import PlacesScreen from '../screens/PlacesScreen';
 import MapScreen from '../screens/MapScreen';
+import PropertyInfoScreen from '../screens/PropertyInfoScreen';
 
 export type RootStackParamList = {
   Main: undefined;
@@ -28,6 +29,18 @@ export type RootStackParamList = {
     place: string
   };
   MapScreen: {searchResults: string};
+  PropertyInfoScreen: {
+    name: string;
+    rating: string;
+    oldPrice: number;
+    newPrice: number;
+    photos: string;
+    roomsProp: string
+    adults: number;
+    children: number;
+    rooms: number;
+    selectDates: number;
+  };
 }
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -108,6 +121,7 @@ function StackNavigation() {
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name='PlacesScreen' component={PlacesScreen} />
         <Stack.Screen name='MapScreen' component={MapScreen} />
+        <Stack.Screen name='PropertyInfoScreen' component={PropertyInfoScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

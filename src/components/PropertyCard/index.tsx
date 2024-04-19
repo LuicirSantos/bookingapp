@@ -2,23 +2,39 @@ import React from 'react';
 import { View, Text, Pressable, Image, Dimensions } from 'react-native';
 import styles from './styles';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { PlacesScreenProps } from '../../screens/PlacesScreen';
 
-type PropertyCardProps = {
+export type PropertyCardProps = {
     rooms: number;
     children: number,
     adults: number;
     selectDates: number;
     propperty: any;
     availableRooms: any;
+    nav: PlacesScreenProps
 }
 
-function PropertyCard({rooms, children, adults, selectDates, propperty, availableRooms}: PropertyCardProps){
+function PropertyCard({rooms, children, adults, selectDates, propperty, availableRooms, nav}: PropertyCardProps){
 
   const {width, height} = Dimensions.get("window");
 
   return (
     <View>
-      <Pressable style={styles.containerPropertyCard}>
+      <Pressable 
+        onPress={() => nav.navigate('PropertyInfoScreen', {
+          name: propperty.name,
+          rating: propperty.rating,
+          oldPrice: propperty.oldPrice,
+          newPrice: propperty.newPrice,
+          photos: propperty.photos,
+          roomsProp: propperty.rooms,
+          adults: adults,
+          children: children,
+          rooms: rooms,
+          selectDates: selectDates
+        })}
+        style={styles.containerPropertyCard}
+      >
         <View>
           <Image style={{height: height / 3.3, width: width - 280}} source={{uri:propperty.image}} />
         </View>

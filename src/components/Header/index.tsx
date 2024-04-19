@@ -9,15 +9,16 @@ type HeaderProps = {
   accommodation: boolean;
   notifications: boolean;
   buttonBack: boolean;
+  nav: any
 }
 
-function Header({titleScreen, accommodation, notifications, buttonBack}: HeaderProps){
+function Header({titleScreen, accommodation, notifications, buttonBack, nav}: HeaderProps){
 
   return (
     <View>
       <View style={styles.containerTextHeader}>
         {buttonBack 
-          ? <AntDesign style={{alignSelf: 'center'}} name="arrowleft" size={24} color="white" />
+          ? <AntDesign onPress={() => nav.goBack()} style={{alignSelf: 'center'}} name="arrowleft" size={24} color="white" />
           : null
         }
         <Text style={styles.textHeader}>{titleScreen}</Text>

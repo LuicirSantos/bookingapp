@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useRoute } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
@@ -7,10 +7,26 @@ import MapView, { Marker } from 'react-native-maps';
 function MapScreen(){
 
     const route = useRoute<any>();
-    const mapView = useRef(null);
+    const mapView: any = useRef(null);
+    const coordinates: any[] = [];
+    const details = route.params.searchResults.map((item: any) => item.properties?.map((prop: any) => {
+        coordinates.push({
+            latitude: Number(prop.latitude),
+            longitude: Number(prop.longitude)
+        });
+    }));
     console.log(route.params);
     
-
+    useEffect(() => {
+        mapView.current.fitToCoordinates(coordinates, {
+            edgePadding: {
+                top: 190,
+                left: 190,
+                bottom: 190,
+                right: 190
+            }
+        })
+    }, []);
     return (
         <View style={styles.containerMapScreen}>
             <MapView
@@ -27,7 +43,9 @@ function MapScreen(){
                                 longitude: Number(property.longitude)
                             }}
                         >
-
+                            <TouchableOpacity style={styles.markerButton}>
+                                <Text style={styles.markerText}>{property.newPrice}</Text>
+                            </TouchableOpacity>
                         </Marker>
                     );
                 }))}

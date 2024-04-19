@@ -10,7 +10,7 @@ import Header from '../../components/Header';
 import PropertyCard from '../../components/PropertyCard';
 import { STYLES_COLOR_GLOBAL } from '../../styles/styles';
 
-type PlacesScreenProps = NativeStackNavigationProp<RootStackParamList, 'PlacesScreen'>;
+export type PlacesScreenProps = NativeStackNavigationProp<RootStackParamList, 'PlacesScreen'>;
 
 const data: any = [
   {
@@ -544,6 +544,7 @@ function PlacesScreen(){
         accommodation={false} 
         notifications={false}
         buttonBack={true}
+        nav={navigation}
       />
       <View style={styles.containerFilterSortMap}>
         <Pressable style={[styles.buttonFilterSortMap]} onPress={() => setModalVisibleChoice(!modalVisibleChoice)}>
@@ -572,14 +573,15 @@ function PlacesScreen(){
           .map((item: any) => item.properties.map((property: any, index: string) => {
             return(
               <PropertyCard 
-              key={index}
-              rooms={route.params.rooms}
-              children={route.params.children}
-              adults={route.params.adults}
-              selectDates={route.params.selectDates}
-              propperty={property}
-              availableRooms={property.rooms}
-            />
+                key={index}
+                rooms={route.params.rooms}
+                children={route.params.children}
+                adults={route.params.adults}
+                selectDates={route.params.selectDates}
+                propperty={property}
+                availableRooms={property.rooms}
+                nav={navigation}
+              />
             )
           }))}
       </ScrollView>
