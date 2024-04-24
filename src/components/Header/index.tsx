@@ -12,7 +12,7 @@ type HeaderProps = {
   nav: any
 }
 
-function Header({titleScreen, accommodation, notifications, buttonBack, nav}: HeaderProps){
+function Header({titleScreen, accommodation, notifications, buttonBack, nav = false}: HeaderProps){
 
   return (
     <View>

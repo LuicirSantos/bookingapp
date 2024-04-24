@@ -13,6 +13,8 @@ import SearchScreen from '../screens/SearchScreen';
 import PlacesScreen from '../screens/PlacesScreen';
 import MapScreen from '../screens/MapScreen';
 import PropertyInfoScreen from '../screens/PropertyInfoScreen';
+import RoomsScren from '../screens/RoomsScreen';
+import UserScreen from '../screens/UserScreen';
 
 export type RootStackParamList = {
   Main: undefined;
@@ -40,6 +42,28 @@ export type RootStackParamList = {
     children: number;
     rooms: number;
     selectDates: number;
+  };
+  RoomsScren: {
+    rooms: string
+    oldPrice: number;
+    newPrice: number;
+    name: string;
+    children: number;
+    adults: number;
+    rating: string;
+    startDate: number;
+    endDate: number;
+    // urlScreen: any
+  };
+  UserScreen: {
+    oldPrice: number;
+    newPrice: number;
+    name: string;
+    children: number;
+    adults: number;
+    rating: string;
+    startDate: number;
+    endDate: number;
   };
 }
 
@@ -122,6 +146,8 @@ function StackNavigation() {
         <Stack.Screen name='PlacesScreen' component={PlacesScreen} />
         <Stack.Screen name='MapScreen' component={MapScreen} />
         <Stack.Screen name='PropertyInfoScreen' component={PropertyInfoScreen} />
+        <Stack.Screen name='RoomsScren' component={RoomsScren} />
+        <Stack.Screen name='UserScreen' component={UserScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

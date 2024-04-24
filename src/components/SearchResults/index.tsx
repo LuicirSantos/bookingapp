@@ -7,7 +7,7 @@ type SearchScreenProps = {
     data: any[];
     input: any;
     setInput: any;
-    nav: SearchScreenProp
+    nav: SearchScreenProp;
 }
 
 function SearchResults({data, input, setInput, nav}: SearchScreenProps){

@@ -577,7 +577,7 @@ function PlacesScreen(){
                 rooms={route.params.rooms}
                 children={route.params.children}
                 adults={route.params.adults}
-                selectDates={route.params.selectDates}
+                date={route.params.date}
                 propperty={property}
                 availableRooms={property.rooms}
                 nav={navigation}

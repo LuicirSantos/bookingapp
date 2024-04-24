@@ -8,13 +8,13 @@ export type PropertyCardProps = {
     rooms: number;
     children: number,
     adults: number;
-    selectDates: number;
+    date: number;
     propperty: any;
     availableRooms: any;
     nav: PlacesScreenProps
 }
 
-function PropertyCard({rooms, children, adults, selectDates, propperty, availableRooms, nav}: PropertyCardProps){
+function PropertyCard({rooms, children, adults, date, propperty, availableRooms, nav}: PropertyCardProps){
 
   const {width, height} = Dimensions.get("window");
 
@@ -31,7 +31,7 @@ function PropertyCard({rooms, children, adults, selectDates, propperty, availabl
           adults: adults,
           children: children,
           rooms: rooms,
-          selectDates: selectDates
+          selectDates: date
         })}
         style={styles.containerPropertyCard}
       >

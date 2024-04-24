@@ -79,6 +79,7 @@ function HomeScreen(){
         accommodation={true} 
         notifications={true}
         buttonBack={false}
+        nav={navigation}
       />
 
       <ScrollView>
