@@ -15,6 +15,7 @@ import MapScreen from '../screens/MapScreen';
 import PropertyInfoScreen from '../screens/PropertyInfoScreen';
 import RoomsScren from '../screens/RoomsScreen';
 import UserScreen from '../screens/UserScreen';
+import ConfirmationScreen from '../screens/ConfirmationScreen';
 
 export type RootStackParamList = {
   Main: undefined;
@@ -53,7 +54,6 @@ export type RootStackParamList = {
     rating: string;
     startDate: number;
     endDate: number;
-    // urlScreen: any
   };
   UserScreen: {
     oldPrice: number;
@@ -65,6 +65,17 @@ export type RootStackParamList = {
     startDate: number;
     endDate: number;
   };
+  ConfirmationScreen: {
+    oldPrice: number;
+    newPrice: number;
+    name: string;
+    children: number;
+    adults: number;
+    rating: string;
+    startDate: number;
+    endDate: number;
+  };
+  
 }
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -148,6 +159,7 @@ function StackNavigation() {
         <Stack.Screen name='PropertyInfoScreen' component={PropertyInfoScreen} />
         <Stack.Screen name='RoomsScren' component={RoomsScren} />
         <Stack.Screen name='UserScreen' component={UserScreen} />
+        <Stack.Screen name='ConfirmationScreen' component={ConfirmationScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

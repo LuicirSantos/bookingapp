@@ -9,7 +9,7 @@ type HeaderProps = {
   accommodation: boolean;
   notifications: boolean;
   buttonBack: boolean;
-  nav: any
+  nav?: any
 }
 
 function Header({titleScreen, accommodation, notifications, buttonBack, nav = false}: HeaderProps){
