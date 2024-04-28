@@ -72,7 +72,6 @@ function RoomsScren(){
                   <Text style={styles.textRoomsSelect}>SELECIONAR</Text>
               </TouchableOpacity>
             )}
-            <Text>{selected}</Text>
           </Pressable>
         )
 
@@ -95,7 +94,7 @@ function RoomsScren(){
           <Text 
             style={styles.titleResultsReservations}
           >
-            Reservas
+            Reservar
           </Text>
         </TouchableOpacity>
       ) : (

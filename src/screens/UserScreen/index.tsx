@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styles from './styles';
 import Header from '../../components/Header';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -17,6 +17,33 @@ function UserScreen(){
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const route: UserRouteProp = useRoute<UserRouteProp>();
+
+  function finalStep(){
+
+    if (firstName && lastName && email && phone) {
+      navigation.navigate('ConfirmationScreen', {
+        oldPrice: route.params.oldPrice,
+        newPrice: route.params.newPrice,
+        name: route.params.name,
+        children: route.params.children,
+        adults: route.params.adults,
+        rating: route.params.rating,
+        startDate: route.params.startDate,
+        endDate: route.params.endDate
+      });
+    } else {
+      Alert.alert(
+        'Detalhes Inválidos',
+        'Porfavor entre com todos os dados dos campos', [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ]);
+    }
+  }
 
   return (
     <View style={styles.containerUser}>
@@ -111,16 +138,7 @@ function UserScreen(){
             <Text>Você salvou {route.params.oldPrice - route.params.newPrice} reais</Text>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('ConfirmationScreen', {
-              oldPrice: route.params.oldPrice,
-              newPrice: route.params.newPrice,
-              name: route.params.name,
-              children: route.params.children,
-              adults: route.params.adults,
-              rating: route.params.rating,
-              startDate: route.params.startDate,
-              endDate: route.params.endDate
-            })}
+            onPress={finalStep}
             style={{
               backgroundColor: '#007fff',
               padding: 10,
