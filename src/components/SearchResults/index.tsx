@@ -4,14 +4,14 @@ import styles from './styles';
 import { SearchScreenProp } from '../../screens/SearchScreen';
 
 type SearchScreenProps = {
-    data: any[];
+    data: any;
     input: any;
     setInput: any;
     nav: SearchScreenProp;
 }
 
 function SearchResults({data, input, setInput, nav}: SearchScreenProps){
-
+    
     function CheckData({data, browser}: any){
         if (data.place.toLowerCase().includes(input.toLowerCase())) {
             if (input === "") {

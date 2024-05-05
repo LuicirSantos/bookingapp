@@ -20,25 +20,25 @@ function HomeScreen(){
   const [destination, setDestination] = useState<any>("");
   const [date, setDate] = useState<any>(dayjs());
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState<string | undefined>("");
-  const [endDate, setEndDate] = useState<string | undefined>("");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const [rooms, setRooms] = useState<number>(1);
   const [adults, setAdults] = useState<number>(2);
   const [children, setChildren] = useState<number>(0);
   const [modalVisibleChoice, setModalVisibleChoice] = useState<boolean>(false);
 
   function searchPlaces(args: string): void{
-    if (destination.length === 0 ||
-       startDate?.length === 0 || 
-       endDate?.length === 0) {
+    if (destination === '' ||
+       startDate === '' || 
+       endDate === '') {
       
         Alert.alert('Dados inválidos', 'Porfavor preencha os campos vazios', [
           {
             text: 'Cancelar',
-            onPress: () => console.log('Cancel Pressed'),
+            onPress: () => null,
             style: 'cancel',
           },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
+          {text: 'OK', onPress: () => null},
         ]);
     }
 
@@ -58,18 +58,16 @@ function HomeScreen(){
       setDestination(route?.params?.input);
     }
 
-    console.log(route.params);
+    // console.log(route.params);
   }, [route?.params]);
 
-  function checkDate(date1: string | undefined, date2: string | undefined){
-    const dateValue1: string | undefined = date1;
-    const dateValue2: string | undefined = date2;
+  function checkDate(date1: string, date2: string){
+    
+    const dateValue1: Date = new Date(date1);
+    const dateValue2: Date = new Date(date2);
 
-    const dateAux1: Date = new Date(`${dateValue1}`);
-    const dateAux2: Date = new Date(`${dateValue2}`);
-
-    setStartDate(`${dateAux1.getDate()}-${dateAux1.getMonth()}-${dateAux1.getFullYear()}`);
-    setEndDate(`${dateAux2.getDate()}-${dateAux2.getMonth()}-${dateAux2.getFullYear()}`);
+    setStartDate(`${dateValue1.getDate()}-${dateValue1.getMonth()}-${dateValue1.getFullYear()}`);
+    setEndDate(`${dateValue2.getDate()}-${dateValue2.getMonth()}-${dateValue2.getFullYear()}`);
   }
 
   return (
@@ -90,13 +88,20 @@ function HomeScreen(){
             onPress={() => navigation.navigate('SearchScreen')}  
           >
             <Feather name="search" size={24} color="black" />
-            <TextInput placeholderTextColor='gray' placeholder={destination !== "" ?  destination.trim() : "Entre com o destino"} />
+            <TextInput editable={false} placeholderTextColor='gray' placeholder={destination !== "" ?  destination.trim() : "Entre com o destino"} />
           </Pressable>
 
           {/* Selected Dates */}
-          <Pressable style={styles.containerInputDatas}>
+          <Pressable 
+            onPress={() => {
+              setModalVisible(true);
+              setStartDate('');
+              setEndDate('');
+            }} 
+            style={styles.containerInputDatas}
+          >
             <Feather name="calendar" size={24} color="black" />
-            <Text style={{color: 'gray'}} onPress={() => setModalVisible(true)}>{startDate || endDate !== "" ? `${startDate} / ${endDate}` : 'Selecionar Data'}</Text>
+            <Text style={{color: 'gray'}}>{startDate || endDate !== '' ? `${startDate} / ${endDate}` : 'Selecionar Data'}</Text>
             <ModalRN
               animationType='slide'
               visible={modalVisible}
@@ -109,23 +114,33 @@ function HomeScreen(){
                 date={date}
                 startDate={startDate}
                 endDate={endDate}
+                locale={'pt'}
+                
                 onChange={(params) => {
-
-                  // checkDate(params.startDate?.toString(), params.endDate?.toString());
-                  setStartDate(params.startDate?.toString());
-                  setEndDate(params.endDate?.toString());
-
+                  setStartDate(params.startDate?.toString() as string);
+                  setEndDate(params.endDate?.toString()  as string);
                 }}
               />
-              <TouchableOpacity 
-                style={styles.buttonDone}
-                onPress={() => {
-                  checkDate(startDate, endDate);
-                  setModalVisible(false)
-                }}
-              >
-                <Text style={styles.textDone}>Concluido</Text>
-              </TouchableOpacity>
+              <View style={styles.containerButtonDate}>
+
+                <TouchableOpacity 
+                  style={styles.buttonCancel}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={styles.textDoneCancel}>Cancelar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                  style={styles.buttonDone}
+                  onPress={() => {
+                    checkDate(startDate, endDate);
+                    setModalVisible(false)
+                  }}
+                >
+                  <Text style={styles.textDoneCancel}>Concluido</Text>
+                </TouchableOpacity>
+
+              </View>
             </ModalRN>
           </Pressable>
 

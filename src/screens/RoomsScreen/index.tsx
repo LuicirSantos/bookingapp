@@ -47,22 +47,21 @@ function RoomsScren(){
             
             {selected?.includes(item.name) ? (
               
-              
-            <TouchableOpacity
-              style={styles.buttomSelected}
-            >
-              <Text
-                style={styles.textRoomSelected}
+              <TouchableOpacity
+                style={styles.buttomSelected}
               >
-                SELECIONADO
-              </Text>
-              <Entypo 
-                onPress={() => setSelected("")}
-                name='circle-with-cross'
-                size={24}
-                color='red'
-              />
-            </TouchableOpacity>
+                <Text
+                  style={styles.textRoomSelected}
+                >
+                  SELECIONADO
+                </Text>
+                <Entypo 
+                  onPress={() => setSelected("")}
+                  name='circle-with-cross'
+                  size={24}
+                  color='red'
+                />
+              </TouchableOpacity>
 
             ) : (
               <TouchableOpacity

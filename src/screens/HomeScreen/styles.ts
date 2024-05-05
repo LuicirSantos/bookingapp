@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
 
+    containerButtonDate:{
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+
     buttonDone: {
         backgroundColor: STYLES_COLOR_GLOBAL.primatyColor,
         width: 90,
@@ -32,7 +37,16 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
 
-    textDone: {
+    buttonCancel:{
+        backgroundColor: '#ff2400',
+        width: 90,
+        padding: 10,
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginTop: 50
+    },
+
+    textDoneCancel: {
         color: 'white',
         textAlign: 'center'
     },

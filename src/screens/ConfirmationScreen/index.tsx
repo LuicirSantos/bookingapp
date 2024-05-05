@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
@@ -8,6 +8,8 @@ import Header from '../../components/Header';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { savedPlaces } from '../../../SavedReducer';
+import { arrayUnion, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../server/firebase';
 
 type ConfirmationRouteProp = RouteProp<RootStackParamList, 'ConfirmationScreen'>;
 type ConfirmationNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ConfirmationScreen'>;
@@ -16,11 +18,23 @@ function ConfirmationScreen(){
 
   const route: ConfirmationRouteProp = useRoute<ConfirmationRouteProp>();
   const navigation: ConfirmationNavigationProp = useNavigation<ConfirmationNavigationProp>();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const uid = auth.currentUser?.uid;
   console.log(route.params);
 
-  function confirmBooking(){
-    dispatch(savedPlaces(route.params));
+  async function confirmBooking(){
+    // dispatch(savedPlaces(route.params));
+
+    await setDoc(
+      doc(db, 'users', `${uid}`),{
+          bookingDetails: arrayUnion(route.params)
+        }
+        ,
+        {
+          merge: true, 
+        }
+    );
+
     navigation.navigate('Main');
   }
   
@@ -52,12 +66,12 @@ function ConfirmationScreen(){
               >
                 <Text style={styles.textPremiumLevel}>Nivel Premium</Text>
               </View>
+              <View style={styles.boxStatusTravel}>
+                  <Text style={styles.textStatusTravel}>Viagem sustentavel</Text>
+              </View>
             </View>
           </View>
 
-          <View style={styles.boxStatusTravel}>
-              <Text style={styles.textStatusTravel}>Viagem sustentavel</Text>
-          </View>
 
         </View>
 

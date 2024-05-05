@@ -1,15 +1,32 @@
-import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useSelector } from 'react-redux';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { collection, doc, getDocs } from "firebase/firestore"; 
 import { BookingReducerProp } from '../../../SavedReducer';
 import Header from '../../components/Header';
+import { auth, db } from '../../server/firebase';
 
 function BookingScreen(){
 
   const bookings: any = useSelector((state: any) => state?.booking?.booking );
-  console.log(`Reservas: ${bookings}`);
+  // console.log(`Reservas: ${bookings}`);
+  const [dataReservation, setDataReservation] = useState<any>([]);
+
+  async function getReservation(){
+
+    // const userId = auth.currentUser?.uid;
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      setDataReservation(doc.data().bookingDetails)
+      console.log(dataReservation);
+    });
+  }
+
+  useEffect(() => {
+    getReservation();
+  }, [])
 
   return (
     <View style={styles.containerBooking}>
@@ -20,7 +37,7 @@ function BookingScreen(){
           buttonBack={false}
           nav={false}
         />
-        {bookings.length > 0 && bookings.map((item: any, index: number) => {
+        {dataReservation.length > 0 && dataReservation.map((item: any, index: number) => {
           return(
             <Pressable
               key={index}

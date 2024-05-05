@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     },
 
     boxTitlePorpertyInfo:{
-
+        // flexDirection: 'row'
     },
 
     titlePropertyInfo:{

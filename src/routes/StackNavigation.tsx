@@ -16,6 +16,8 @@ import PropertyInfoScreen from '../screens/PropertyInfoScreen';
 import RoomsScren from '../screens/RoomsScreen';
 import UserScreen from '../screens/UserScreen';
 import ConfirmationScreen from '../screens/ConfirmationScreen';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 export type RootStackParamList = {
   Main: undefined;
@@ -75,7 +77,8 @@ export type RootStackParamList = {
     startDate: number;
     endDate: number;
   };
-  
+  LoginScreen: undefined;
+  RegisterScreen: undefined;
 }
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -152,6 +155,8 @@ function StackNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="Main" component={BottomTabs} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name='PlacesScreen' component={PlacesScreen} />

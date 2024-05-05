@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons';
@@ -6,6 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes/StackNavigation';
 import SearchResults from '../../components/SearchResults';
 import { useNavigation } from '@react-navigation/native';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../server/firebase';
 
 export type SearchScreenProp = NativeStackNavigationProp<RootStackParamList, "SearchScreen">;
 
@@ -115,7 +117,7 @@ const data: any[] = [
         name: "Regenta Inn Indiranagar Bangalore",
         rating: 4,
         address:
-          " 648/B, Regenta Inn Indiranagar, Binnamangala 1st stage Indiranagar, 560038 Bangalore, India",
+          "648/B, Regenta Inn Indiranagar, Binnamangala 1st stage Indiranagar, 560038 Bangalore, India",
         oldPrice: 4201,
         newPrice: 3327,
         latitude: "12.9784",
@@ -275,6 +277,7 @@ const data: any[] = [
             payment: "Pay in advance",
             bed: "1 queen bed",
           },
+          // parei aqui
           {
             id: "205",
             name: "Deluxe king Room",
@@ -472,9 +475,29 @@ const data: any[] = [
   },
 ];
 
+
 function SearchScreen(){
   const [input, setInput] = useState<any>("");
   const navigation = useNavigation<SearchScreenProp>();
+
+  const [data, setdata] = useState<any>([]);
+
+  useEffect(() => {
+      
+    const fetchProducts = async () => {
+      const colRef = collection(db, "places");
+
+      const docsSnap = await getDocs(colRef);
+      docsSnap.forEach((doc) => {
+        data.push(doc.data())
+      })
+    }
+
+    if (data.length === 0) {
+      fetchProducts();
+    }
+    
+  }, [data]);
 
   return (
     <View style={styles.containerSearchScreen}>
