@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useSelector } from 'react-redux';
-import { MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { collection, doc, getDocs } from "firebase/firestore"; 
+import { MaterialIcons, AntDesign, FontAwesome  } from '@expo/vector-icons';
+import { FieldValue, arrayRemove, collection, deleteField, doc, getDocs, setDoc, updateDoc } from "firebase/firestore"; 
 import { BookingReducerProp } from '../../../SavedReducer';
 import Header from '../../components/Header';
 import { auth, db } from '../../server/firebase';
@@ -13,6 +13,7 @@ function BookingScreen(){
   const bookings: any = useSelector((state: any) => state?.booking?.booking );
   // console.log(`Reservas: ${bookings}`);
   const [dataReservation, setDataReservation] = useState<any>([]);
+  const [updated, setUpdated ] = useState<boolean>(false);
 
   async function getReservation(){
 
@@ -22,6 +23,18 @@ function BookingScreen(){
       setDataReservation(doc.data().bookingDetails)
       console.log(dataReservation);
     });
+  }
+
+  async function deleteReservation(args: string){
+    const userId: string |undefined =  auth.currentUser?.uid;
+    await updateDoc(doc(db, 'users', `${userId}`), {
+      bookingDetails: arrayRemove(args)
+    },
+    {
+      merge: true, 
+    });
+
+    setUpdated(true);
   }
 
   useEffect(() => {
@@ -37,61 +50,46 @@ function BookingScreen(){
           buttonBack={false}
           nav={false}
         />
-        {dataReservation.length > 0 && dataReservation.map((item: any, index: number) => {
+        
+        {dataReservation.length > 0 ? dataReservation.map((item: any, index: any) => {
           return(
             <Pressable
               key={index}
-              style={{
-                backgroundColor: "white",
-                marginVertical:10,
-                marginHorizontal:20,
-                borderColor: "#E0E0E0",
-                borderWidth: 1,
-                padding: 14,
-                borderRadius: 6,
-              }}
+              style={styles.containerReservation}
             >
               <View>
-                <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                <Text style={styles.textNameReservation}>
                   {item.name}
                 </Text>
                 <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 7,
-                  }}
+                  style={styles.containerStatus}
                 >
                   <MaterialIcons name="stars" size={24} color="green" />
-                  <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-                    {item.rating}
+                  <Text style={styles.textRating}>
+                    {item.startDate}
                   </Text>
                   <View
-                    style={{
-                      padding: 6,
-                      width: 100,
-                      backgroundColor: "#0039a6",
-                      marginLeft: 4,
-                      borderRadius: 5,
-                    }}
+                    style={styles.containerLevelPremium}
                   >
                     <Text
-                      style={{
-                        textAlign: "center",
-                        color: "white",
-                        fontSize: 13,
-                        fontWeight: "400",
-                      }}
+                      style={styles.textNivelPremium}
                     >
                       Nivel Premium
                     </Text>
                   </View>
                 </View>
               </View>
+              <TouchableOpacity 
+                onPress={() => deleteReservation(item.name)}
+                style={styles.deleteReservation}
+              >
+                  <FontAwesome name="trash-o" size={35} color="red" />
+              </TouchableOpacity>
             </Pressable>
 
           )
-        })}
+        }) : <Text>Você não tem nenhuma reserva</Text>
+        }
 
     </View>
   )
